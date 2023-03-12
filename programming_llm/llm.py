@@ -11,7 +11,7 @@ tools = [
     Tool(
         name="GPT index",
         func=lambda q: str(index.query(q)),
-        description="useful for when you want to answer questions about the author. The input to this tool should be a complete english sentence.",
+        description="useful for when you want generate code for your application. The input to this tool should be a complete english sentence with code",
         return_direct=True 
     )
 ]
@@ -27,5 +27,9 @@ llm=OpenAI(
 agent_chain = initialize_agent(tools, llm, agent="conversational-react-description", memory=memory)
 
 def run(query):
-    return agent_chain.run(input=query) 
+    try:
+        return agent_chain.run(input=query) 
+    except Exception as e:
+        print(e)
+        return "Error occured."
 

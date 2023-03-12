@@ -633,13 +633,13 @@ llms = ["anthropic (>=0.2.2,<0.3.0)", "cohere (>=3,<4)", "huggingface_hub (>=0,<
 
 [[package]]
 name = "llama-index"
-version = "0.4.25"
+version = "0.4.26"
 description = "Interface between LLMs and your data."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "llama_index-0.4.25.tar.gz", hash = "sha256:ef81a183d3fc3ab1916d29d4fe2749666bca15aa79e66d82cb047138644aacc0"},
+    {file = "llama_index-0.4.26.tar.gz", hash = "sha256:ff981f5e7a94b70dc1997a039dd88859407f19256ba8be856d31d5e1e4a28400"},
 ]
 
 [package.dependencies]
@@ -916,13 +916,14 @@ files = [
 
 [[package]]
 name = "openai"
-version = "0.27.1"
+version = "0.27.2"
 description = "Python client library for the OpenAI API"
 category = "main"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-0.27.1.tar.gz", hash = "sha256:11a8eb9b609653295be6cc67febecd5189f17b22ef015462c5003d8959567fd7"},
+    {file = "openai-0.27.2-py3-none-any.whl", hash = "sha256:6df674cf257e9e0504f1fd191c333d3f6a2442b13218d0eccf06230eb24d320e"},
+    {file = "openai-0.27.2.tar.gz", hash = "sha256:5869fdfa34b0ec66c39afa22f4a0fb83a135dff81f6505f52834c6ab3113f762"},
 ]
 
 [package.dependencies]
