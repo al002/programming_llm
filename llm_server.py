@@ -10,7 +10,7 @@ from programming_llm import llm
 class LLM(llm_pb2_grpc.LLMServicer):
     async def query(self, request: llm_pb2.LLMRequest,
                     context: grpc.aio.ServicerContext) -> llm_pb2.LLMReply:
-        answer = llm.run(request.query)
+        answer = llm.run(request.query, request.template)
         return llm_pb2.LLMReply(response=answer)
 
 

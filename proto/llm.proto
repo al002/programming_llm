@@ -6,8 +6,13 @@ service LLM {
   rpc query(LLMRequest) returns (LLMReply) {}
 }
 
+enum PromptTemplate {
+  TERMINAL = 0;
+}
+
 message LLMRequest {
   string query = 1;
+  optional PromptTemplate template = 2;
 }
 
 message LLMReply {
