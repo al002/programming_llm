@@ -1,9 +1,13 @@
+import logging
+from pathlib import Path
 from langchain.agents import Tool
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.llms import OpenAI
 from langchain.agents import initialize_agent
+from langchain.prompts import load_prompt
 
 from llama_index import GPTSimpleVectorIndex
+import llm_pb2
 
 index = GPTSimpleVectorIndex.load_from_disk('./indices/programming_index.json')
 
@@ -26,10 +30,18 @@ llm=OpenAI(
     )
 agent_chain = initialize_agent(tools, llm, agent="conversational-react-description", memory=memory)
 
-def run(query):
+def run(query, template):
     try:
-        return agent_chain.run(input=query) 
+        # prompt = ""
+        # match template:
+        #     case llm_pb2.TERMINAL:
+        #         prompt = load_prompt(str(Path("programming_llm/prompt/terminal/prompt.json").resolve())).format()
+        #     case _:
+        #         prompt = query
+        # logging.info(prompt)
+        return agent_chain.run(input=query)
     except Exception as e:
         print(e)
+        logging.error(e)
         return "Error occured."
 

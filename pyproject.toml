@@ -14,6 +14,9 @@ grpcio = "^1.51.3"
 grpcio-tools = "^1.51.3"
 
 
+[tool.poetry.group.dev.dependencies]
+jupyterlab = "^3.6.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
