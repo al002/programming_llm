@@ -1,34 +1,27 @@
-import logging
-from pathlib import Path
-from langchain.agents import Tool
-from langchain.chains.conversation.memory import ConversationBufferMemory
-from langchain.llms import OpenAI
-from langchain.agents import initialize_agent
-from langchain.prompts import load_prompt
+from langchain import LLMChain, PromptTemplate
+from langchain.chat_models import ChatOpenAI
 
-from llama_index import GPTSimpleVectorIndex
-import llm_pb2
+template = """
+I want you to act as a {role}. I will describe a project details you will code project with thouse tools: {tech_stacks}. You should output different filename and content for its functionality. Do not write explanations. My frist request is "{query}".
+"""
 
-index = GPTSimpleVectorIndex.load_from_disk('./indices/programming_index.json')
+prompt = PromptTemplate.from_template(template)
 
-tools = [
-    Tool(
-        name="GPT index",
-        func=lambda q: str(index.query(q)),
-        description="useful for when you want generate code for your application. The input to this tool should be a complete english sentence with code",
-        return_direct=True 
-    )
-]
+ROLE = "Senior Frontend developer"
+TECHS = "React, pnpm, Ant Design, Redux Toolkit, axios"
+QUERY = "Create Pokemon App that lists pokemons with images that come from PokeAPI sprites endpoint"
 
-memory = ConversationBufferMemory(memory_key="chat_history")
+# chat mode instance
+chat = ChatOpenAI(temperature=0.7)
 
-llm=OpenAI(
-        temperature=1,
-        model_name="gpt-3.5-turbo",
-        presence_penalty=0,
-        frequency_penalty=0
-    )
-agent_chain = initialize_agent(tools, llm, agent="conversational-react-description", memory=memory)
+chatgpt_chain = LLMChain(
+    llm=chat, 
+    prompt=prompt, 
+    verbose=True, 
+)
+
+output = chatgpt_chain.predict(role=ROLE, tech_stacks=TECHS, query=QUERY)
+print(output)
 
 def run(query, template):
     try:
@@ -39,9 +32,9 @@ def run(query, template):
         #     case _:
         #         prompt = query
         # logging.info(prompt)
-        return agent_chain.run(input=query)
+        # return agent_chain.run(input=query)
+        pass
     except Exception as e:
         print(e)
-        logging.error(e)
         return "Error occured."
 
